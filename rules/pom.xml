@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.redhat.fuse</groupId>
+	<artifactId>camel-kie-example-rules</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>kjar</packaging>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>Deploy-To-Repo</name>
+			<url>http://localhost:9000/nexus/content/repositories/releases/</url>
+			<uniqueVersion>false</uniqueVersion>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Deploy-To-Repo</name>
+			<url>http://localhost:9000/nexus/content/repositories/snapshots/</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>jboss-techpreview</id>
+			<url>http://maven.repository.redhat.com/techpreview/all</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jboss-techpreview-plugins</id>
+			<url>http://maven.repository.redhat.com/techpreview/all</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-maven-plugin</artifactId>
+				<version>6.0.3-redhat-4</version>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-api</artifactId>
+			<version>6.0.3-redhat-4</version>
+		</dependency>
+	</dependencies>
+
+</project>

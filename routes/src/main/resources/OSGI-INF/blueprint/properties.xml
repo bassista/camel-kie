@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="
+			http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+			http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+
+    <cm:property-placeholder id="kie-example.properties" persistent-id="org.camel.kie.example">
+
+        <cm:default-properties>
+            <!--
+            <cm:property name="enable.trace" value="false"/>
+            -->
+            <!-- 
+            <cm:property name="route1.in"                   value="timer://foo?fixedRate=true&amp;period=10000"/>
+             -->
+            <cm:property name="route1.in"                   value="file:///tmp/camel-kie-example?fileName=in.txt"/>            
+            <cm:property name="route1.out"                  value="file:///tmp/camel-kie-example?fileName=out.txt" /> <!-- activemq:number-mask-out -->
+            
+            <!--
+            <cm:property name="amq.brokerURL"               value="discovery:(fabric:my-broker)"/>
+            <cm:property name="amq.username"                value="admin"/>
+            <cm:property name="amq.password"                value="admin"/>
+            <cm:property name="amq.concurrent.consumers"    value="20"/>
+            -->
+            
+            <cm:property name="kie.releaseId"               value="com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT" />
+            <cm:property name="kie.maven.settings.custom"   value="src/main/resources/client-settings.xml"/>
+            
+        </cm:default-properties>
+
+    </cm:property-placeholder>
+
+</blueprint>

@@ -1,0 +1,13 @@
+package obfuscate
+
+rule "obfuscate"
+when
+  $c:org.camel.kie.domain.PhoneCall()
+then
+//  $c.setTo(org.camel.kie.Utils.obfuscate($c.getTo(),4,"X"));
+  
+  $c.setTo(
+    $c.getTo().substring(0, $c.getTo().length()-4)+String.format("%4s"," ").replaceAll(" ", "X")
+  );
+  
+end
