@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.util.Dictionary;
 import java.util.List;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.test.blueprint.CamelBlueprintTestSupport;
 import org.apache.log4j.Logger;
+import org.camel.kie.domain.PhoneCall;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MaskNumberRouteTest extends CamelBlueprintTestSupport {
@@ -66,9 +66,15 @@ public class MaskNumberRouteTest extends CamelBlueprintTestSupport {
 	  MockEndpoint mockOut=bootstrapRoute("KieExample-Route1", "{{route1.in}}", "{{route1.out}}");
 	  
     template.sendBody("{{route1.in}}", generateExamplePayload());
-//    List<Exchange> exchanges = mockOut.getExchanges();
-//    Message messageOut = exchanges.get(0).getIn();
-//    System.out.println("messageOut = "+messageOut);
+    List<Exchange> exchanges = mockOut.getExchanges();
+    Message messageOut = exchanges.get(0).getIn();
+    System.out.println("messageOut = "+messageOut);
+    
+    org.camel.kie.domain.PhoneCallSummary s=(org.camel.kie.domain.PhoneCallSummary) messageOut.getBody();
+    System.out.println(s);
+    for(PhoneCall c:s.getPhoneCalls())
+      Assert.assertTrue(c.getTo().matches("\\d+XXXX$"));
+    
     mockOut.expectedMessageCount(1);
     assertMockEndpointsSatisfied();
 	}
@@ -97,143 +103,4 @@ public class MaskNumberRouteTest extends CamelBlueprintTestSupport {
     return getMockEndpoint("mock:result");
   }
   
-	
-//	@Test
-//	public void shouldApplyCDRNumberShieldingToGermanNumbersOnly() throws Exception {
-//		
-//		context.getRouteDefinition("CDRService-NumberShielding")
-//	    	.adviceWith(context, new RouteBuilder() {
-//	        @Override
-//	        public void configure() throws Exception {
-//	        	 interceptSendToEndpoint("{{cdr.persist}}")
-////                    .skipSendToOriginalEndpoint()
-//	        	 .process(new Processor() {
-//	        		 @Override
-//	        		 public void process(Exchange exchange) throws Exception {
-////	        			 String payload = IOUtils.toString(this.getClass().getResourceAsStream("/accept/invalid.xml"));
-////	        			 exchange.getOut().setBody(payload, String.class);
-//	        			 System.out.println("BODY="+exchange.getIn().getBody());
-//	        		 }
-//	        		 
-//	        	 })
-//	        	 .to("mock:result")
-//	        	 ;
-//	        }
-//	    });
-//		
-//		// shielding list
-//		ShieldingList shieldingList = new ShieldingList();
-//		shieldingList.getPreferences().putAll(
-//				new PreferencesBuilder()
-//				.withPreference("DE", "07775698521")
-//				.withPreference("DE", "07775698533")
-//				.build());
-//		String shieldingFileLocation = System.getProperty("user.dir")+ "/src/test/resources/shielding/shielding.json";
-//		new ObjectMapper().writeValue(new FileOutputStream(	shieldingFileLocation), shieldingList);
-//
-//		final FILE cdrFileRepresentation = new FILE();
-//		cdrFileRepresentation.getUSAGE().addAll( new UsageGenerator().generate(8));
-//		cdrFileRepresentation.getUSAGE().add(createUsage("DE", "07775698521", "07492759351")); // call should be shielded
-//		cdrFileRepresentation.getUSAGE().add(createUsage("NL", "07775698533", "07947284372")); // call doesnt match pref country, so shouldnt be shielded
-//
-//		getMockEndpoint("mock:result").expectedMessageCount(1);
-//		
-//		new File("target/in").mkdirs();
-//		new File("target/in", "file1.DAT").createNewFile();
-////		IOUtils.write(TestBase.marshal(cdrFileRepresentation), new FileOutputStream(new File("target/in", "file1.DAT")));
-//		String payload = IOUtils.toString(this.getClass().getResourceAsStream("/split/in.xml"));
-//		IOUtils.write(payload, new FileOutputStream(new File("target/in", "file1.DAT")));
-////		template.sendBody("direct:start", cdrFileRepresentation);
-//
-//		assertMockEndpointsSatisfied();
-//
-//		List<Exchange> exchanges = getMockEndpoint("mock:result").getExchanges();
-//		Message message = exchanges.get(0).getIn();
-//		String shieldingListLocation = message.getHeader("shieldingListLocation", String.class);
-//
-//		assertThat(exchanges, notNullValue());
-//		assertEquals(shieldingListLocation,"src/test/resources/shielding/shielding.json");
-//
-//		FILE result = message.getBody(FILE.class);
-//		List<USAGE> usages = result.getUSAGE();
-//
-//		String originalBNumber1 = "07492759351";
-//		String shieldedBNumber1 = "";
-//		for (USAGE usage : usages) {
-//			// DE call + DE preference - should shield
-//			if (usage.getOriginatingNumberA().equalsIgnoreCase("07775698521")&& usage.getAccountCountryCode().equalsIgnoreCase("DE")) {
-//				shieldedBNumber1 = usage.getCalledNumberBShielded();
-//				originalBNumber1 = usage.getCalledNumberB();
-//			} else {
-//				// NL call + DE preference - should not shield
-//				Assert.assertEquals("", usage.getCalledNumberBShielded());
-//			}
-//		}
-//		
-//		Assert.assertEquals("07492759351", originalBNumber1);
-//		Assert.assertEquals("07492759XXX", shieldedBNumber1);
-//	}
-//
-//	class PreferencesBuilder {
-//		Map<String, List<Preference>> p = new HashMap<String, List<Preference>>();
-//
-//		public PreferencesBuilder withPreference(String countryCode,
-//				String msisdn) {
-//			List<Preference> l = p.get(countryCode);
-//			if (null == l)
-//				l = new ArrayList<Preference>();
-//			Preference pref = new Preference();
-//			pref.setMsisdn(msisdn);
-//			l.add(pref);
-//			p.put(countryCode, l);
-//			return this;
-//		}
-//
-//		public Map<String, List<Preference>> build() {
-//			return p;
-//		}
-//	}
-//
-//	private USAGE createUsage(String billingCountry, String aNumber,
-//			String bNumber) {
-//		FILE.USAGE u = new FILE.USAGE();
-//		u.setAccountCountryCode(billingCountry);
-//		u.setCalledNumberB(bNumber);
-//		u.setCalledNumberBShielded("");
-//		u.setOriginatingNumberA(aNumber);
-//		return u;
-//	}
-//
-//	// == Generator code
-//	public enum CountryCodes {
-//		NL, DE
-//	}
-//
-//	private static final Generator<USAGE> usageGenerator = new RouteTest().new UsageGenerator();
-//
-//	public class UsageGenerator implements Generator<USAGE> {
-//		@Override
-//		public USAGE next() {
-//			FILE.USAGE u = new FILE.USAGE();
-//			u.setAccountCountryCode(enumValues(CountryCodes.class).next()
-//					.name());
-//			u.setCalledNumberB("0" + strings("0123456789", 10, 10).next());
-//			u.setCalledNumberBShielded("");
-//			u.setOriginatingNumberA("0" + strings("0123456789", 10, 10).next());
-//			return u;
-//		}
-//
-//		public List<USAGE> generate(int howMany) {
-//			final List<USAGE> result = Lists.newArrayList();
-//			forAll(howMany, usageGenerator,
-//					new AbstractCharacteristic<USAGE>() {
-//						@Override
-//						protected void doSpecify(USAGE usage) throws Throwable {
-//							result.add(usage);
-//						}
-//					});
-//			return result;
-//		}
-//	}
-
 }
