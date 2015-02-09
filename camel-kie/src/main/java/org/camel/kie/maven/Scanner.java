@@ -12,44 +12,44 @@ import java.util.zip.ZipFile;
 import org.apache.log4j.Logger;
 import org.drools.compiler.kie.builder.impl.ZipKieModule;
 import org.drools.compiler.kproject.models.KieModuleModelImpl;
-import org.eclipse.aether.artifact.Artifact;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieModule;
 import org.kie.api.builder.ReleaseId;
 import org.kie.api.builder.model.KieModuleModel;
 
+import org.eclipse.aether.artifact.Artifact;
+
 public class Scanner {
   public static final Logger log=Logger.getLogger(Scanner.class);
   private ReleaseId releaseId;
-//  private KieScanner kScanner;
   private Timer timer;
-  
-  public Scanner(ReleaseId releaseId){
+
+  public Scanner(ReleaseId releaseId) {
     this.releaseId=releaseId;
-//    this.kScanner=KieServices.Factory.get().newKieScanner(kContainer);
   }
-  
-  public Scanner start(long interval){
+
+  public Scanner start(long interval) {
     stop();
     scanNow();
-    timer=new Timer("KieScanner", true);
+    timer=new Timer("Scanner", true);
     timer.scheduleAtFixedRate(new ScanTask(), 0l, interval);
     return this;
   }
-  
-  public Scanner stop(){
+
+  public Scanner stop() {
     if (null!=timer) timer.cancel();
     return this;
   }
-  
-  public void scanNow(){
+
+  public Scanner scanNow() {
     log.debug("Scanning...");
-    Artifact kjar=new Maven().applySettingsXml().resolveArtifact(getDelimitedGav(releaseId));
+    Artifact kjar=new Maven().applySettingsXml().resolveArtifact(toDelimitedGav(releaseId));
     KieModuleModel kModuleXml=getKieModuleModelFromJar(kjar.getFile());
     KieModule kModule=new ZipKieModule(releaseId, kModuleXml, kjar.getFile());
     KieServices.Factory.get().getRepository().addKieModule(kModule);
+    return this;
   }
-  
+
   private static KieModuleModel getKieModuleModelFromJar(File jar) {
     ZipFile zipFile=null;
     try {
@@ -69,15 +69,15 @@ public class Scanner {
     }
     return null;
   }
-  
-  public class ScanTask extends TimerTask{
+
+  public class ScanTask extends TimerTask {
     @Override
     public void run() {
       scanNow();
     }
   }
-  
-  private static String getDelimitedGav(ReleaseId gav){
+
+  private static String toDelimitedGav(ReleaseId gav) {
     return String.format("%s:%s:%s", gav.getGroupId(), gav.getArtifactId(), gav.getVersion());
   }
 

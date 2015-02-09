@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="org.jboss.super">
+
+	<repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
+	<repository>mvn:org.apache.activemq/activemq-karaf/${activemq.version}/xml/features</repository>
+	<repository>mvn:org.apache.karaf.assemblies.features/enterprise/${karaf.version}/xml/features</repository>
+	<repository>mvn:org.apache.karaf.assemblies.features/standard/${karaf.version}/xml/features</repository>
+	<repository>mvn:org.fusesource.fabric/fuse-fabric/${fuse-esb.version}/xml/features</repository>
+	<repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>
+	<repository>mvn:io.hawt/hawtio-karaf/${hawtio.version}/xml/features</repository>
+	<repository>mvn:org.jboss.fuse/drools-features/5.3.1.BRMS/xml/features</repository>
+	
+	<feature name="esb-features" resolver='(obr)'>
+		<feature>test-service</feature>
+	</feature>
+	
+	<feature name="test-service" resolver='(obr)'>
+		<feature dependency="true">camel-core</feature>
+		<feature dependency="true">camel-blueprint</feature>
+		<feature dependency="true">activemq-camel</feature>
+		<feature dependency="true">mq-fabric</feature>
+		<feature dependency="true">camel-jackson</feature>
+		<bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/2.2.2</bundle>
+		<bundle dependency="true">mvn:org.jboss.super.fuse/service1-spec/${pom.version}</bundle>
+		<feature>drools-all</feature>
+		<bundle>mvn:org.jboss.super.fuse/service1/${pom.version}</bundle>
+	</feature>
+
+</features>

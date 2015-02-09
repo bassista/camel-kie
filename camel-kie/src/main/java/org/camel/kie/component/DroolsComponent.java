@@ -11,7 +11,7 @@ public class DroolsComponent extends DefaultComponent {
   public DroolsComponent(CamelContext context) {
     super(context);
   }
-
+  
   @Override
   protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
     DroolsEndpoint endpoint=new DroolsEndpoint(uri, remaining, this);

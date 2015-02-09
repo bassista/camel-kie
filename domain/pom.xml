@@ -17,11 +17,10 @@
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Import-Package>
                             javax.xml.bind.annotation;resolution:=optional,
-                            org.camel.kie.domain;resolution:=optional,
                             *
                         </Import-Package>
                         <Export-Package>
-                            org.camel.kie.domain;uses:=javax.xml.bind.annotation
+                            org.camel.kie.domain
                         </Export-Package>
                     </instructions>
                 </configuration>

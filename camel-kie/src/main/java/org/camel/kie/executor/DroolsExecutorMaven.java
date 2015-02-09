@@ -26,7 +26,7 @@ public class DroolsExecutorMaven extends DroolsExecutor{
     ReleaseId gav=new ReleaseIdImpl(e.getReleaseId());
     KieBaseConfiguration kConfiguration=ks.newKieBaseConfiguration();
     
-    // set any config on the KieBaseConfiguration
+    // TODO: mallen - add any config on the KieBaseConfiguration from the camel endpoint here...
     
     KieBase kBase=null;
     if (null!=e.getKieMavenSettings()){
@@ -34,7 +34,9 @@ public class DroolsExecutorMaven extends DroolsExecutor{
       log.debug(String.format("Setting system property kie.maven.settings.custom to '%s'", e.getKieMavenSettings()));
     }
     
-    Scanner scanner=new Scanner(gav).start(Long.parseLong(e.getKieMavenScanInterval()));
+    // TODO: mallen - need to make this a singleton at some point
+//    Scanner scanner=new Scanner(gav).start(Long.parseLong(e.getKieMavenScanInterval()));
+    Scanner scanner=new Scanner(gav).scanNow();
     KieContainer kContainer=ks.newKieContainer(gav);
     
     kBase=e.getKieBaseName()!=null?kContainer.newKieBase(e.getKieBaseName(), kConfiguration):kContainer.newKieBase(kConfiguration);

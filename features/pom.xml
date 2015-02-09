@@ -1,0 +1,81 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <groupId>com.redhat.fuse</groupId>
+    <artifactId>camel-kie-features</artifactId>
+    <version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+    
+    <properties>
+        <camel.version>2.12.0.redhat-611412</camel.version>
+        <activemq.version>5.9.0</activemq.version>
+        <brms.version>6.0.3-redhat-6</brms.version>
+        <aetherVersion>1.0.2.v20150114</aetherVersion>
+        <mavenVersion>3.2.5</mavenVersion>
+    </properties>
+    
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>filter</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Attach the generated features file as an artifact, and publish to the maven repository -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>attach-artifacts</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>target/classes/features.xml</file>
+									<type>xml</type>
+									<classifier>features</classifier>
+								</artifact>
+                                <!-- 
+                                <artifact>
+                                    <file>target/classes/drools-karaf-features-6.0.3-custom-1.xml</file>
+                                    <type>xml</type>
+                                    <classifier>karaf</classifier>
+                                </artifact>
+                                 -->
+								<artifact>
+									<file>target/classes/installer.karaf</file>
+									<type>karaf</type>
+									<classifier>installer</classifier>
+								</artifact>
+								
+								<!-- 
+								
+								could add custom .bnd file for any complex files too
+								 -->
+								
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
