@@ -104,12 +104,6 @@
     -->
     
 	<dependencies>
-<!-- 	 <dependency>
-<groupId>org.ow2.asm</groupId>
-<artifactId>asm-all</artifactId>
-<version>4.0</version>
-<scope>test</scope>
-</dependency> -->
 
 <!--
 <dependency>
@@ -148,6 +142,18 @@
 			<artifactId>camel-blueprint</artifactId>
             <version>${camel.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-blueprint</artifactId>
+            <version>${camel.version}</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test</artifactId>
+            <version>${camel.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jaxb</artifactId>
@@ -160,12 +166,6 @@
             <version>${camel.version}</version>
 		</dependency>
 		-->
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test-blueprint</artifactId>
-            <version>${camel.version}</version>
-			<scope>test</scope>
-		</dependency>
 		<!--
         <dependency>
             <groupId>org.apache.activemq</groupId>
@@ -209,7 +209,7 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
+			<version>2.4</version>
 		</dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
@@ -312,89 +312,6 @@
         -->
         
         
-        <!-- the MAVEN AETHER bits - taken from http://git.eclipse.org/c/aether/aether-demo.git/tree/aether-demo-snippets/pom.xml -->
-<!-- 
-    <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-api</artifactId>
-      <version>${aetherVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-spi</artifactId>
-      <version>${aetherVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-util</artifactId>
-      <version>${aetherVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-impl</artifactId>
-      <version>${aetherVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-connector-basic</artifactId>
-      <version>${aetherVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-transport-file</artifactId>
-      <version>${aetherVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.aether</groupId>
-      <artifactId>aether-transport-http</artifactId>
-      <version>${aetherVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-aether-provider</artifactId>
-      <version>${mavenVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.sisu</groupId>
-      <artifactId>org.eclipse.sisu.plexus</artifactId>
-      <version>0.1.1</version>
-      <optional>true</optional>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.enterprise</groupId>
-          <artifactId>cdi-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.sonatype.sisu</groupId>
-      <artifactId>sisu-guice</artifactId>
-      <version>3.1.6</version>
-      <classifier>no_aop</classifier>
-      <optional>true</optional>
-      <exclusions>
-        <exclusion>
-          <groupId>aopalliance</groupId>
-          <artifactId>aopalliance</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.google.code.findbugs</groupId>
-          <artifactId>jsr305</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-settings</artifactId>
-      <version>${mavenVersion}</version>
-    </dependency>        
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-settings-builder</artifactId>
-      <version>${mavenVersion}</version>
-    </dependency>        
- -->
-        
 	</dependencies>
 
 	<build>
@@ -407,28 +324,6 @@
 				<configuration>
 					<instructions>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<!-- 
-							org.osgi.service.blueprint,
-							org.osgi.service.event,
-							org.osgi.service.blueprint.container,
-							org.osgi.service.cm,
-							org.apache.camel.impl,
-							org.apache.aries.blueprint.ext,
-							org.apache.camel.model,
-							
-							org.apache.camel.support,
-							org.apache.aries.blueprint,
-							org.apache.camel.blueprint,
-							org.apache.camel.spi,
-							
-                            org.camel.kie.component,
-                            org.camel.kie.executor,
-                            org.camel.kie.maven,
-							
-							org.camel.kie.domain,
-							
-							org.apache.maven.model.plugin,
-						 -->
 						<Import-Package>
 							org.apache.aries.blueprint
 							,org.apache.aries.blueprint.ext
@@ -450,52 +345,6 @@
 							,org.camel.kie.executor
 							,org.drools.compiler.lang
 						</Import-Package>
-                        <!--
-                            org.osgi.service.blueprint;version="[1.0.0,2.0.0)",
-						    org.apache.camel;version="[2.12,3)",
-						    org.camel.kie.domain;version="[1.0,2)",
-						    org.apache.camel.impl;version="[2.12,3)",
-						    org.apache.camel.blueprint;version="[2.12,3)",
-						    org.apache.aries.blueprint.ext,
-						    org.osgi.service.cm,
-						    org.osgi.service.blueprint.container,
-						    org.apache.camel.model;version="[2.12,3)",
-						    org.apache.maven.model.plugin,
-						    org.osgi.service.event,
-						    org.apache.camel.support;version="[2.12,3)",
-						    org.camel.kie.component;version="[1.0,2)",
-						    org.apache.camel.spi;version="[2.12,3)",
-						    org.camel.kie.executor;version="[1.0,2)",
-						    org.camel.kie.maven;version="[1.0,2)",
-						    org.apache.aries.blueprint,
-    
-							org.apache.camel.util,
-							org.apache.maven.settings.building,
-							org.drools.compiler.lang,
-                        
-                        
-                        
-                        
-                        
-                            org.apache.maven.model.plugin,
-                            
-							org.apache.maven.settings,
-							org.apache.camel.language.simple,
-							org.apache.activemq.camel.component,
-						<Bundle-Activator>org.camel.kie.maven.Activator</Bundle-Activator>
-							org.camel.kie.domain,
-						<Private-Package>
-						    org.camel.kie
-						</Private-Package>
-							org.apache.commons.pool,
-							org.apache.camel.component.jackson,
-							org.apache.camel.component.cxf,
-							org.apache.camel.component.jms,
-							org.apache.commons.collections.map,
-							org.fusesource.fabric.zookeeper,
-							org.apache.cxf.transport.http,
-							org.apache.camel.processor.validation,
-                        -->
 					</instructions>
 				</configuration>
 			</plugin>

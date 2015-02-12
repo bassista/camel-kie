@@ -31,24 +31,11 @@ public class MaskNumberRouteTest extends CamelBlueprintTestSupport {
 	@Override @SuppressWarnings({ "rawtypes", "unchecked" })
 	public String useOverridePropertiesWithConfigAdmin(Dictionary props) {
 	  props.put("enable.trace", false);
-		props.put("amq.username", "");
-		props.put("amq.password", "");
-		props.put("amq.brokerURL", "vm://localhost?broker.persistent=false");
 		props.put("route1.in", "direct:in");
-		
-//		props.put("kie.releaseId", "com.redhat.brms.defects:version-update:1.0-SNAPSHOT");
+		props.put("kie.releaseId", "com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT");
 		props.put("kie.maven.settings.custom", "src/test/resources/client-settings.xml");
 		return "org.camel.kie.example";
 	}
-	
-//	@Override
-//  protected CamelContext createCamelContext() throws Exception {
-//    CamelContext ctx=super.createCamelContext();
-////	  CamelContext ctx=new DefaultCamelContext();
-//    ctx.addComponent("drools", new org.camel.kie.camel.DroolsComponent());
-//    return ctx;
-//  }
-	
 	
   public static String generateExamplePayload() throws IOException{
 	  StringBuffer sb=new StringBuffer();

@@ -112,19 +112,10 @@ public class Maven {
 
     public static RepositorySystem newRepositorySystem() {
       DefaultServiceLocator locator=MavenRepositorySystemUtils.newServiceLocator();
-//      locator.addService(RepositoryConnectorFactory.class,FileRepositoryConnectorFactory.class);
       locator.addService(RepositoryConnectorFactory.class, BasicRepositoryConnectorFactory.class);
       locator.addService(TransporterFactory.class, FileTransporterFactory.class);
       locator.addService(TransporterFactory.class, HttpTransporterFactory.class);
       locator.setServices(WagonProvider.class,new Maven.ManualWagonProvider());
-      
-//      locator.addService(TransporterFactory.class, WagonTransporterFactory.class);
-//      locator.setServices(WagonProvider.class, new ManualWagonProvider());
-//      locator.addService(RepositoryConnectorFactory.class, WagonRepositoryConnectorFactory.class);
-//      locator.setService(org.sonatype.aether.spi.log.Logger.class, LogAdapter.class);
-//      org.apache.http.client.methods.HttpUriRequest
-//      org.apache.http.HttpRequest
-//      javax.net.ssl.HostnameVerifier
       locator.setErrorHandler(new DefaultServiceLocator.ErrorHandler() {
         @Override
         public void serviceCreationFailed(Class<?> type, Class<?> impl, Throwable exception) {
@@ -142,7 +133,6 @@ public class Maven {
   public static class ManualWagonProvider implements WagonProvider {
     public Wagon lookup(String roleHint) throws Exception {
       if ("http".equals(roleHint)) {
-//        return new AhcWagon();
         return new LightweightHttpWagon();
       }else if ("file".equals(roleHint)) {
         return new org.apache.maven.wagon.providers.file.FileWagon();

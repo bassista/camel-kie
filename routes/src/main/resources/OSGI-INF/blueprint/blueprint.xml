@@ -6,30 +6,8 @@
 	xsi:schemaLocation="
       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
       ">
-<!-- 
-	xmlns:kie="http://drools.org/schema/kie-aries-blueprint/1.0.0"
-	
-	xmlns:kie="http://drools.org/schema/kie-spring"
-      http://drools.org/schema/kie-spring http://drools.org/schema/kie-spring.xsd
- -->
-	<!--
-	<bean id="drools" class="org.camel.kie.DroolsComponent">
-	   <property name="method" value="http"/>
-	   <property name="kieReleaseId" value="${kie.releaseId}"/>
-	   
-	   <property name="method" value="http"/>
-	   <property name="serverBaseUrl" value="http://localhost:16080/business-central"/>
-       <property name="serverUsername" value="admin"/>
-       <property name="serverPassword" value="admin"/>
-       
-       <property name="method" value="maven"/>
-	   <property name="kieMavenSettings" value="${kie.maven.settings.custom}"/>
-	   
-	   <property name="method" value="classpath"/>
-	</bean>
-	-->
     
-	<camelContext trace="false" xmlns="http://camel.apache.org/schema/blueprint" id="KieExample">
+	<camelContext trace="{{enable.trace}}" xmlns="http://camel.apache.org/schema/blueprint" id="KieExample">
          
         <dataFormats>
             <jaxb id="xmlMarshaler" prettyPrint="true" contextPath="org.camel.kie.domain" />
@@ -39,24 +17,7 @@
 			<from uri="{{route1.in}}" />
 			<log loggingLevel="INFO" message="Before rule execution  : ${body}"/>
 			<unmarshal ref="xmlMarshaler"/>
-            
-            <to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;method=maven&amp;kieBaseName=KBase1&amp;kieMavenSettings=/home/mallen/Work/poc/camel-kie-example/routes/src/main/resources/client-settings.xml"/>
-            
-			<!--
-			// the kie-ci is not working with this
-            
-            // this works because release versions have static http urls to grab the kjar - not the best solution, but works!
-            <to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0?facts=${body.phoneCalls}&amp;method=http&amp;server=http://localhost:9000/nexus/content/repositories/releases&amp;kieBaseName=defaultKieBase&amp;username=admin&amp;password=admin123"/>
-            
-            <to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;method=maven&amp;kieBaseName=defaultKieBase&amp;kieMavenSettings=/home/mallen/Work/poc/camel-kie-example/routes/src/main/resources/client-settings.xml"/>
-            <to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;method=maven&amp;server=http://localhost:9000/nexus/content/repositories/snapshots&amp;kieBaseName=defaultKieBase&amp;username=admin&amp;password=admin"/>
-            <to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;method=http&amp;server=http://localhost:16080/business-central/maven2&amp;kieBaseName=defaultKieBase&amp;username=admin&amp;password=admin"/>
-			<to uri="drools:org.drools:camel-test:1.0?facts=${body.phoneCalls}&amp;method=http&amp;server=http://localhost:16080/business-central&amp;username=admin&amp;password=admin"/>
-			<to uri="drools:com.redhat.brms.defects:version-update:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;method=http&amp;server=http://localhost:16080/business-central&amp;username=admin&amp;password=admin"/>
-            <to uri="bean:drools?method=fireRules(${body.phoneCalls}, '{{kie.releaseId}}')" />
-			<to uri="drools:?releaseId=123:fireAllRules:${body.phoneCalls}"/>
-			<to uri="kie:kSession1?action=insertBody"/>
-			-->
+            <to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;kieBaseName=KBase1&amp;kieMavenSettings=/home/mallen/Work/poc/camel-kie-example/routes/src/main/resources/client-settings.xml"/>
 			<log loggingLevel="INFO" message="After rule execution  : ${body}" />
 			<inOnly uri="{{route1.out}}" />
 		</route>

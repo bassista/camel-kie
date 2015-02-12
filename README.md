@@ -43,4 +43,5 @@ mvn clean install
 ```
 source http://your-maven-repo/com.redhat.fuse/camel-kie-features/camel-kie-features-installer.karaf
 ```
+22)
 
