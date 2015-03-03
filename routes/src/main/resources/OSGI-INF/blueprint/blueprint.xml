@@ -17,7 +17,7 @@
 			<from uri="{{route1.in}}" />
 			<log loggingLevel="INFO" message="Before rule execution  : ${body}" />
 			<unmarshal ref="xmlMarshaler" />
-			<to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;kieBaseName=KBase1&amp;kieMavenSettings=/home/mallen/Work/poc/camel-kie-example/routes/src/main/resources/client-settings.xml" />
+			<to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;kieBaseName=KBase1" />
 			<log loggingLevel="INFO" message="After rule execution  : ${body}" />
 			<inOnly uri="{{route1.out}}" />
 		</route>
