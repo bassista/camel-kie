@@ -6,21 +6,21 @@
 	xsi:schemaLocation="
       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
       ">
-    
+
 	<camelContext trace="{{enable.trace}}" xmlns="http://camel.apache.org/schema/blueprint" id="KieExample">
-         
-        <dataFormats>
-            <jaxb id="xmlMarshaler" prettyPrint="true" contextPath="org.camel.kie.domain" />
-        </dataFormats>
-        
+
+		<dataFormats>
+			<jaxb id="xmlMarshaler" prettyPrint="true" contextPath="org.camel.kie.domain" />
+		</dataFormats>
+
 		<route id="KieExample-Route1">
 			<from uri="{{route1.in}}" />
-			<log loggingLevel="INFO" message="Before rule execution  : ${body}"/>
-			<unmarshal ref="xmlMarshaler"/>
-            <to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;kieBaseName=KBase1&amp;kieMavenSettings=/home/mallen/Work/poc/camel-kie-example/routes/src/main/resources/client-settings.xml"/>
+			<log loggingLevel="INFO" message="Before rule execution  : ${body}" />
+			<unmarshal ref="xmlMarshaler" />
+			<to uri="drools:com.redhat.fuse:camel-kie-example-rules:1.0-SNAPSHOT?facts=${body.phoneCalls}&amp;kieBaseName=KBase1&amp;kieMavenSettings=/home/mallen/Work/poc/camel-kie-example/routes/src/main/resources/client-settings.xml" />
 			<log loggingLevel="INFO" message="After rule execution  : ${body}" />
 			<inOnly uri="{{route1.out}}" />
 		</route>
-        
+
 	</camelContext>
 </blueprint>
