@@ -155,6 +155,21 @@
             <scope>test</scope>
         </dependency>
         
+        <!-- 
+        <dependency>
+            <groupId>org.apache.aries.blueprint</groupId>
+            <artifactId>org.apache.aries.blueprint.core</artifactId>
+            <version>1.0.1.redhat-611412</version>
+        </dependency>
+         -->
+         <!-- 
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-blueprint</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+          -->
+        
 	</dependencies>
 
 	<build>
@@ -216,12 +231,12 @@
 						    ,org.apache.camel.impl;version="[2.12,3)"
 						    ,org.apache.camel.language.simple;version="[2.12,3)"
 							,org.apache.camel.blueprint
+							,org.apache.aries.blueprint
 							,org.apache.aries.blueprint.ext
 							,org.apache.aries.proxy.weaving
 							,org.apache.camel.util
 							,org.apache.camel.model
 							,org.apache.camel.support
-							,org.apache.aries.blueprint
 						    
 						    ,org.apache.log4j
 						    

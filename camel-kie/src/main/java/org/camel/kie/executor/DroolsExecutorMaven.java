@@ -19,7 +19,7 @@ public class DroolsExecutorMaven extends DroolsExecutor{
     if (null==e.getReleaseId()) throw new RuntimeException("KieReleaseId cannot be null. Please set this property prior to using the "+this.getClass().getSimpleName());
     if (e.getReleaseId().split(":").length!=3) throw new RuntimeException("KieReleaseId must be in the format \"groupId:artifactId:version\".");
     
-    log.info("Using Maven KieExecutor");
+    log.info("Using "+this.getClass().getSimpleName());
     log.debug(String.format("Using Kie ReleaseId '%s'", e.getReleaseId()));
     
     KieServices ks=KieServices.Factory.get();
@@ -29,7 +29,7 @@ public class DroolsExecutorMaven extends DroolsExecutor{
     // TODO: mallen - add any config on the KieBaseConfiguration from the camel endpoint here...
     
     KieBase kBase=null;
-    if (null!=e.getKieMavenSettings()){
+    if (null!=e.getKieMavenSettings() && !"".equals(e.getKieMavenSettings())){
       System.setProperty("kie.maven.settings.custom", e.getKieMavenSettings());
       log.debug(String.format("Setting system property kie.maven.settings.custom to '%s'", e.getKieMavenSettings()));
     }

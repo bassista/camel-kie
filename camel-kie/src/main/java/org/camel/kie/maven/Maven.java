@@ -45,7 +45,7 @@ public class Maven {
   }
 
   public Maven addRepository(RemoteRepository newRemoteRepo) {
-    log.debug("adding maven remote repository: "+newRemoteRepo.getUrl());
+    log.debug("adding maven remote repository: "+newRemoteRepo.getUrl()+"@id="+newRemoteRepo.getId());
     remoteRepositories.add(newRemoteRepo);
     return this;
   }

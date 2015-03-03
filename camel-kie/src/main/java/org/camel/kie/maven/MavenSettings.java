@@ -63,13 +63,15 @@ public class MavenSettings {
 
   private static File initUserSettingsFile() {
     String customSettings=System.getProperty(CUSTOM_SETTINGS_PROPERTY);
-    if (customSettings!=null) {
+    if (customSettings!=null && !"".equalsIgnoreCase(customSettings)) {
       File customSettingsFile=new File(customSettings);
       if (customSettingsFile.exists()) {
         return customSettingsFile;
       } else {
         log.warn("Cannot find custom maven settings file: "+customSettings);
       }
+//    }else{
+//      log.debug("No custom settings property set");
     }
 
     String userHome=System.getProperty("user.home");
