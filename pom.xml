@@ -6,11 +6,6 @@
 	<version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     
-    <!--
-    To Deploy example in fuse:
-    source mvn:com.redhat.fuse/camel-kie-features/1.0-SNAPSHOT/karaf/installer
-    -->
-    
     <modules>
         <module>camel-kie</module>
         <module>features</module>
