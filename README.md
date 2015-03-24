@@ -33,7 +33,7 @@ mvn clean deploy
 mvn clean install
 ```
 * open "routes" in your IDE and run the test class named MaskNumberRouteTest - it should be green.
-* you're done! You've just run a camel route which loaded rules from your maven repository, executed them which changed the payload by masking out the phone numbers into X's
+* you're done! You've just run a camel route which loaded rules from your maven repository, executed them which changed the payload masking out the phone numbers into X's
 
 
 ### Deploy and run on Fuse/Karaf
@@ -50,5 +50,5 @@ source mvn:com.redhat.fuse/camel-kie-features/1.0-SNAPSHOT/karaf/installer
 * Wait for features to be deployed (specifically bundle camel-kie-example-routes should be in an active state)
 * to test the service, copy camel-kie-example/example-routes/src/test/resources/in.txt to /tmp/camel-kie-example
 * ensure the file was collected and that an /tmp/camel-kie-example/out.txt was created where the "to" numbers are obfuscated with XXXX characters
-
+* You're done! You've just run a camel route which loaded rules from a maven repository, executed them and changed the payload masking out the phone numbers into X's
 
