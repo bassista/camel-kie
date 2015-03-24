@@ -43,5 +43,15 @@ mvn clean install
 ```
 source http://your-maven-repo/com.redhat.fuse/camel-kie-features/camel-kie-features-installer.karaf
 ```
-22)
+or from your local maven repo by running:
+```
+source mvn:com.redhat.fuse/camel-kie-features/1.0-SNAPSHOT/karaf/installer
+```
+22) Wait for features to be deployed (specifically bundle camel-kie-example-routes should be in an active state)
+23) to test the service, copy camel-kie-example/example-routes/src/test/resources/in.txt to /tmp/camel-kie-example
+24) ensure the file was collected and that an /tmp/camel-kie-example/out.txt was created where the "to" numbers are obfuscated with XXXX characters
+
+
+
+
 

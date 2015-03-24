@@ -5,13 +5,20 @@
 	<artifactId>camel-kie-example-parent</artifactId>
 	<version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-        
+    
+    <!--
+    To Deploy example in fuse:
+    
+    
+    
+    -->
+    
     <modules>
         <module>camel-kie</module>
-        <module>domain</module>
-        <module>rules</module>
-        <module>routes</module>
         <module>features</module>
+        <module>example-domain</module>
+        <module>example-rules</module>
+        <module>example-routes</module>
     </modules>
     
 </project>

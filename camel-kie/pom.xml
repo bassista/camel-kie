@@ -259,10 +259,6 @@
 							,org.apache.aries.proxy
 							,org.apache.camel.spi
 							
-							,org.camel.kie.maven
-							,org.camel.kie.executor
-							,org.camel.kie.component
-							
 							,org.osgi.service.cm
 							,org.osgi.service.event
 							,org.osgi.service.blueprint.container
@@ -273,6 +269,12 @@
 						    ,org.camel.kie.executor
 						    ,org.camel.kie.maven
 						</Export-Package>
+
+<!-- 
+                            ,org.camel.kie.maven
+                            ,org.camel.kie.executor
+                            ,org.camel.kie.component
+ -->
 					</instructions>
 				</configuration>
 			</plugin>
