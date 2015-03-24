@@ -8,9 +8,7 @@
     
     <!--
     To Deploy example in fuse:
-    
-    
-    
+    source mvn:com.redhat.fuse/camel-kie-features/1.0-SNAPSHOT/karaf/installer
     -->
     
     <modules>
