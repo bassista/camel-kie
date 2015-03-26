@@ -1,4 +1,4 @@
-# camel-kie-example
+# camel-kie Component 
 
 
 ### What is this?
