@@ -174,54 +174,11 @@
 
 	<build>
 		<plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.eclipse.aether:aether-api</include>
-                                    <include>org.eclipse.aether:aether-spi</include>
-                                    <include>org.eclipse.aether:aether-util</include>
-                                    <include>org.eclipse.aether:aether-impl</include>
-                                    <include>org.eclipse.aether:aether-transport-file</include>
-                                    <include>org.eclipse.aether:aether-transport-http</include>
-                                    <include>org.eclipse.aether:aether-connector-basic</include>
-                                    <include>org.eclipse.aether:aether-transport-wagon</include>
-                                    <include>org.apache.maven:maven-settings</include>
-                                    <include>org.apache.maven:maven-settings-builder</include>
-                                    <include>org.apache.maven:maven-core</include>
-                                    
-                                    <include>org.codehaus.plexus:*</include>
-                                    <include>org.apache.maven:maven-aether-provider</include>
-                                    <include>org.apache.maven.wagon:*</include>
-                                    
-                                    <include>org.apache.maven:maven-model</include>
-                                    <include>org.apache.maven:maven-model-builder</include>
-                                    <include>org.apache.maven:*</include>
-                                    <include>org.apache.httpcomponents:httpclient</include>
-                                    <include>org.apache.httpcomponents:httpcore</include>
-                                    
-                                    <include>org.eclipse.sisu:*</include>
-                                    <include>org.sonatype.sisu:*</include>
-                                    
-                                </includes>
-                            </artifactSet>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 			<!-- to generate the MANIFEST-FILE of the bundle -->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.5.4</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -278,6 +235,50 @@
 					</instructions>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.eclipse.aether:aether-api</include>
+                                    <include>org.eclipse.aether:aether-spi</include>
+                                    <include>org.eclipse.aether:aether-util</include>
+                                    <include>org.eclipse.aether:aether-impl</include>
+                                    <include>org.eclipse.aether:aether-transport-file</include>
+                                    <include>org.eclipse.aether:aether-transport-http</include>
+                                    <include>org.eclipse.aether:aether-connector-basic</include>
+                                    <include>org.eclipse.aether:aether-transport-wagon</include>
+                                    <include>org.apache.maven:maven-settings</include>
+                                    <include>org.apache.maven:maven-settings-builder</include>
+                                    <include>org.apache.maven:maven-core</include>
+                                    
+                                    <include>org.codehaus.plexus:*</include>
+                                    <include>org.apache.maven:maven-aether-provider</include>
+                                    <include>org.apache.maven.wagon:*</include>
+                                    
+                                    <include>org.apache.maven:maven-model</include>
+                                    <include>org.apache.maven:maven-model-builder</include>
+                                    <include>org.apache.maven:*</include>
+                                    <include>org.apache.httpcomponents:httpclient</include>
+                                    <include>org.apache.httpcomponents:httpcore</include>
+                                    
+                                    <include>org.eclipse.sisu:*</include>
+                                    <include>org.sonatype.sisu:*</include>
+                                    
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 
